@@ -74,7 +74,7 @@ We will implement the following control methods:
 * Allowing user and developers to add/modify their own games only.
 * Validation of inputs and restricting any injection or cross scripting attempts.
 
-### 3.3. Priorities
+#### 3.3. Priorities
 Following are our priorities in decreasing order:
 
 -	Thorough analysis of the project scope at hand.
