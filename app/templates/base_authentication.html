@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}(no title){% endblock %}</title>
+
+    <!-- Website CSS style -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="{% static 'css/authentication.css' %}">
+</head>
+<body>
+
+<div class="container">
+    {% block content %}(no content){% endblock %}
+</div>
+
+{% block additional_includes %}
+{% endblock %}
+</body>
+</html>

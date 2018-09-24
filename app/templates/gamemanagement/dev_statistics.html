@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Statistics
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading"> {{ user.get_username }}'s statistics</div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Game</th>
+                <th>Times bought</th>
+                <th>Price (€)</th>
+                <th>High score</th>
+                <th>Last time bought</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in stats %}
+                <tr>
+                    <th>
+                        {{ s.title }}
+                    </th>
+                    <th>
+                        {{ s.times_bought }}
+                    </th>
+                    <th>
+                        {{ s.price }}
+                    </th>
+                    <th>
+                        {{ s.best_score|default_if_none:"N/A" }}
+                    </th>
+                    <th>
+                        {{ s.last_time_bought|default_if_none:"N/A" }}
+                    </th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

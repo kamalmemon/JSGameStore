@@ -1,0 +1,113 @@
+{% extends 'base_authentication.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                {% if flag == True %}
+                    <h1 class="title">You Registered Successfully</h1>
+                    <div class="login-register">
+                        <a href="{% url 'usermanagement:login_page' %}">Login</a>
+                    </div>
+                {% else %}
+                    <h1 class="title">Register</h1>
+
+                    {% if user_already_exists == True %}
+                        <div id='addAlert' class="alert alert-danger"> Username or Email is already in use, try another name.</div>
+                    {% endif %}
+                    {% if password_mismatch == True %}
+                        <div id='addAlert' class="alert alert-danger"> Password mismatch, please try again.</div>
+                    {% endif %}
+
+                    <hr/>
+                    </div>
+                    </div>
+                    <div class="main-login main-center">
+                        <form class="form-horizontal" method="post"
+                              action="{% url 'usermanagement:register_action' %}">{% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}"
+                                       class="cols-sm-2 control-label">{{ form.name.label }}</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}"
+                                       class="cols-sm-2 control-label">{{ form.email.label }}</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                                                           aria-hidden="true"></i></span>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.username.id_for_label }}"
+                                       class="cols-sm-2 control-label">{{ form.username.label }}</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users fa"
+                                                                           aria-hidden="true"></i></span>
+                                        {{ form.username }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}"
+                                       class="cols-sm-2 control-label">{{ form.password.label }}</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                           aria-hidden="true"></i></span>
+                                        {{ form.password }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="{{ form.confirmPassword.id_for_label }}"
+                                       class="cols-sm-2 control-label">{{ form.confirmPassword.label }}</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                                                           aria-hidden="true"></i></span>
+                                        {{ form.confirmPassword }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <label for="{{ form.is_dev.id_for_label }}"
+                                           class="cols-sm-2 control-label">{{ form.is_dev.label }} {{ form.is_dev }}</label>
+                                </div>
+
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register
+                                </button>
+                            </div>
+                            <div class="login-register">
+                                <a href="{% url 'usermanagement:login_page' %}">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
+                {% endif %}
+{% endblock %}
+
+{% block additional_includes %}
+
+{% endblock %}

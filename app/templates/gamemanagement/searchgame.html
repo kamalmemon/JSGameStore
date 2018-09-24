@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
+    {% load staticfiles %}
+    <h3>Search by "{{ query }}"</h3>
+    <hr/>
+    <ul class="event-list">
+        {% if games|length == 0 %}
+            <p>No games found.</p>
+        {% endif %}
+
+        {% for game in games %}
+            <li>
+                {% if game.thumbnail_url|length > 0 %}
+                    <img alt="thumbnail" src="{{ game.thumbnail_url }}"/>
+                {% else %}
+                    <img alt="thumbnail" src="{% static 'img/default.png' %}"/>
+                {% endif %}
+                <div class="info">
+                    <h4 class="title">{{ game.title }}</h4>
+                    <p class="desc"><b>Price: </b>{{ game.price }}€</p>
+                    <p class="desc"><b>Developer: </b>{{ game.developer.username }}</p>
+                    <p class="desc"><b>Number of Sales: </b>{{ game.times_bought }}</p>
+                </div>
+
+                <form id="form{{ game.id }}" action="//payments.webcourse.niksula.hut.fi/pay/"
+                      method="POST">{% csrf_token %}
+                    <input type="hidden" id="pid{{ game.id }}" name="pid"/>
+                    <input type="hidden" id="sid{{ game.id }}" name="sid"/>
+                    <input type="hidden" id="checksum{{ game.id }}" name="checksum">
+                    <input type="hidden" id="amount{{ game.id }}" name="amount">
+
+                    <input type="hidden" name="success_url"
+                           value="{{ request.build_absolute_uri }}?paymentRedirect=true"/>
+                    <input type="hidden" name="cancel_url"
+                           value="{{ request.build_absolute_uri }}?paymentRedirect=true"/>
+                    <input type="hidden" name="error_url"
+                           value="{{ request.build_absolute_uri }}?paymentRedirect=true"/>
+                </form>
+                <div class="social">
+                    <ul>
+                        {% if game in purchases %}
+                            <li class="twitter" style="width:34%;"><a id="Buy{{ game.id }}"><span
+                                    class="glyphicon glyphicon-shopping-cart"></span></a></li>
+
+                        {% else %}
+                            <li class="twitter" style="width:34%;"><a
+                                    href="{% url 'gameplay:play' purchase.game.id %}"><span
+                                    class="glyphicon glyphicon-play-circle"></span></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
